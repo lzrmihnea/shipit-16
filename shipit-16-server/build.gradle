@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.7.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -19,12 +19,26 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+ext {
+    hibernateVersion = '5.2.5.Final'
+    hibernateValidatorVersion = '5.3.3.Final'
+    postgresqlVersion = '9.4.1212'
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+
+    compile(group: 'org.hibernate', name: 'hibernate-core', version: "${hibernateVersion}")
+    compile(group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidatorVersion}")
+    compile(group: 'org.hibernate', name: 'hibernate-entitymanager', version: "${hibernateVersion}")
+
+    compile(group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}")
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
