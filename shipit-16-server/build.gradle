@@ -38,6 +38,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
 
+    compile(group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}")
+
     compile(group: 'org.hibernate', name: 'hibernate-core', version: "${hibernateVersion}")
     compile(group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidatorVersion}")
     compile(group: 'org.hibernate', name: 'hibernate-entitymanager', version: "${hibernateVersion}")
