@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan
 @EnableAutoConfiguration
-//@EnableJpaRepositories(basePackages = "ro.gov.ithub", repositoryBaseClass = BaseRepositoryImpl.class)
+//@EnableJpaRepositories(basePackages = "eu.accesa.shopit", repositoryBaseClass = BaseRepositoryImpl.class)
 @SpringBootApplication
 public class ShopItServer {
 

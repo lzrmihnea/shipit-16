@@ -26,6 +26,7 @@ ext {
     hibernateVersion = '5.2.5.Final'
     hibernateValidatorVersion = '5.3.3.Final'
     postgresqlVersion = '9.4.1212'
+    commonsLang3Version = '3.5'
 }
 
 
@@ -39,6 +40,9 @@ dependencies {
     compile(group: 'org.hibernate', name: 'hibernate-entitymanager', version: "${hibernateVersion}")
 
     compile(group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}")
+
+    compile(group: 'org.apache.commons', name: 'commons-lang3', version: "${commonsLang3Version}")
+
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
