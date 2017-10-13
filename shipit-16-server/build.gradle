@@ -27,6 +27,8 @@ ext {
     hibernateValidatorVersion = '5.3.3.Final'
     postgresqlVersion = '9.4.1212'
     commonsLang3Version = '3.5'
+    myBatisVersion='3.4.1'
+    myBatisSpringVersion='1.3.1'
 }
 
 
@@ -34,15 +36,15 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
 
-
+    compile(group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}")
     compile(group: 'org.hibernate', name: 'hibernate-core', version: "${hibernateVersion}")
     compile(group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidatorVersion}")
     compile(group: 'org.hibernate', name: 'hibernate-entitymanager', version: "${hibernateVersion}")
-
-    compile(group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}")
+    compile(group: 'org.mybatis', name: 'mybatis', version: myBatisVersion)
+    compile(group: 'org.mybatis', name: 'mybatis-spring', version: myBatisSpringVersion)
+    compile(group: 'com.zaxxer', name:'HikariCP', version: '2.4.4')
 
     compile(group: 'org.apache.commons', name: 'commons-lang3', version: "${commonsLang3Version}")
-
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
