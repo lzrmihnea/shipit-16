@@ -1,6 +1,6 @@
 package eu.accesa.shopit.service.calc;
 
-import eu.accesa.shopit.repository.ComputedProductMapper;
+import eu.accesa.shopit.repository.ComputationMapper;
 import eu.accesa.shopit.repository.PredictedShoppingListRepository;
 import eu.accesa.shopit.repository.ProductRepository;
 import eu.accesa.shopit.repository.ShoppingListRepository;
@@ -17,7 +17,7 @@ public class ShoppingListPredictorImplMihnea implements ShoppingListPredictor {
     @Autowired
     private PredictedShoppingListRepository predictedShoppingListRepository;
     @Autowired
-    private ComputedProductMapper computedProductMapper;
+    private ComputationMapper computationMapper;
 
     @Override
     public List<String> predictedList() {

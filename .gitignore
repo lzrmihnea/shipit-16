@@ -24,3 +24,4 @@ dist/
 nbdist/
 .nb-gradle/
 classes/
+shipit-16-server/out/

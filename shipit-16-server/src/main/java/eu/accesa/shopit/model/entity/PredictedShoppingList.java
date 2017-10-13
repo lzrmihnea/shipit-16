@@ -1,4 +1,4 @@
-package eu.accesa.shopit.entity;
+package eu.accesa.shopit.model.entity;
 
 import eu.accesa.shopit.base.BaseEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
-import static eu.accesa.shopit.entity.PredictedShoppingList.PREDICTED_SHOPPING_LIST_TABLE_NAME;
+import static eu.accesa.shopit.model.entity.PredictedShoppingList.PREDICTED_SHOPPING_LIST_TABLE_NAME;
 
 @Entity
 @Table(name = PREDICTED_SHOPPING_LIST_TABLE_NAME)

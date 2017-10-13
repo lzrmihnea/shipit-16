@@ -1,6 +1,7 @@
-package eu.accesa.shopit.entity;
+package eu.accesa.shopit.model.entity;
 
 import eu.accesa.shopit.base.BaseEntity;
+import eu.accesa.shopit.model.CreatePurchaseRequest;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 
-import static eu.accesa.shopit.entity.Product.PRODUCT_TABLE_NAME;
+import static eu.accesa.shopit.model.entity.Product.PRODUCT_TABLE_NAME;
 
 @Entity
 @Table(name = PRODUCT_TABLE_NAME)
@@ -26,6 +27,13 @@ public class Product implements BaseEntity {
 
     @Column(name = PRODUCT_COLUMN_NAME, unique = true)
     private String name;
+
+    public Product() {
+    }
+
+    public Product(String productName) {
+        this.name = productName;
+    }
 
     @Override
     public String toString() {

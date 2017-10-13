@@ -1,6 +1,8 @@
-package eu.accesa.shopit.entity;
+package eu.accesa.shopit.model.entity;
 
 import eu.accesa.shopit.base.BaseEntity;
+import eu.accesa.shopit.model.CreatePurchaseRequest;
+import eu.accesa.shopit.util.DateUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8,9 +10,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
-import static eu.accesa.shopit.entity.ShoppingList.SHOPPING_LIST_TABLE_NAME;
+import static eu.accesa.shopit.model.entity.ShoppingList.SHOPPING_LIST_TABLE_NAME;
 
 @Entity
 @Table(name = SHOPPING_LIST_TABLE_NAME)
@@ -31,12 +35,20 @@ public class ShoppingList implements BaseEntity {
     @Column(name = SHOPPING_LIST_COLUMN_DATE)
     private Date date;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = SHOPPING_LIST_PRODUCTS_TABLE_NAME,
             joinColumns = {@JoinColumn(name = SHOPPING_LIST_PRODUCTS_COLUMN_SHOPPING_LIST_ID, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = SHOPPING_LIST_PRODUCTS_COLUMN_PRODUCT_ID, updatable = false)})
     private List<Product> products;
 
+    public ShoppingList() {
+        this.date = new Date(Instant.now().toEpochMilli());
+    }
+
+    public ShoppingList(CreatePurchaseRequest purchase) {
+        this.date = DateUtil.convertUtilToSql(purchase.getDate());
+        this.getProducts().add(new Product(purchase.getProductName()));
+    }
 
     @Override
     public String toString() {
@@ -70,10 +82,17 @@ public class ShoppingList implements BaseEntity {
     }
 
     public List<Product> getProducts() {
+        if (this.products == null) {
+            this.products = new ArrayList<>();
+        }
         return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public void add(CreatePurchaseRequest purchase) {
+        this.getProducts().add(new Product(purchase.getProductName()));
     }
 }
