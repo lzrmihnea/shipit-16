@@ -4,6 +4,7 @@ import eu.accesa.shopit.model.CreatePurchaseListRequest;
 import eu.accesa.shopit.model.CreatePurchaseRequest;
 import eu.accesa.shopit.model.entity.Product;
 import eu.accesa.shopit.service.ShoppingListService;
+import io.vavr.Tuple2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -38,13 +40,14 @@ public class PurchasesController {
     }
 
     @RequestMapping(value = API_GET_SHOPPING_LIST, method = RequestMethod.GET)
-    public List<String> shoppingList() {
+    public List<Tuple2<Double,String>> shoppingList() {
         // todo recalculate shopping list
-        return shoppingListService.getNextShoppingList()
-                .getProducts()
-                .stream()
-                .map(Product::toString)
-                .collect(Collectors.toList());
+        return shoppingListService.getNextShoppingList();
+    }
+
+    @RequestMapping(value = "/default-profile", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public void setDefaultProfile(@RequestBody Map<String,Integer> profileMapping){
+        shoppingListService.setProfile(profileMapping);
     }
 
 }

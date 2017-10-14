@@ -2,12 +2,16 @@ package eu.accesa.shopit.service;
 
 import eu.accesa.shopit.model.CreatePurchaseListRequest;
 import eu.accesa.shopit.model.CreatePurchaseRequest;
+import eu.accesa.shopit.model.entity.DefaultProfile;
 import eu.accesa.shopit.model.entity.Product;
 import eu.accesa.shopit.model.entity.ShoppingList;
-import eu.accesa.shopit.repository.ComputationMapper;
+import eu.accesa.shopit.repository.DefaultProfileRepository;
 import eu.accesa.shopit.repository.ProductRepository;
 import eu.accesa.shopit.repository.ShoppingListRepository;
+import eu.accesa.shopit.service.calc.ExpectedInterval;
 import eu.accesa.shopit.util.DateUtil;
+import io.vavr.Tuple2;
+import io.vavr.collection.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ShoppingListServiceImpl implements ShoppingListService {
@@ -27,15 +32,13 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private ComputationMapper computationMapper;
+    private ExpectedInterval expectedInterval;
+    @Autowired
+    private DefaultProfileRepository defaultProfileRepository;
 
     @Override
-    public ShoppingList getNextShoppingList() {
-//        TODO get next shopping list as date
-        return Optional
-                .ofNullable(this.shoppingListRepository.findAll())
-                .map(shoppingLists -> shoppingLists.get(0))
-                .orElse(null);
+    public List<Tuple2<Double, String>> getNextShoppingList() {
+        return expectedInterval.predictedList();
     }
 
     @Override
@@ -49,6 +52,19 @@ public class ShoppingListServiceImpl implements ShoppingListService {
         if (!ObjectUtils.isEmpty(purchaseList) && !CollectionUtils.isEmpty(purchaseList.getPurchaseList())) {
             purchaseList.getPurchaseList().forEach(purchaseReq -> this.saveOrUpdate(purchaseReq));
         }
+    }
+
+    @Override
+    public void setProfile(java.util.Map<String, Integer> profileMap) {
+        io.vavr.collection.HashMap.ofAll(profileMap)
+                .forEach((key, value) -> {
+                            DefaultProfile dp = new DefaultProfile();
+                            dp.setName(key);
+                            dp.setInterval(value);
+                            System.out.println("inserted:" + key);
+                            defaultProfileRepository.save(dp);
+                        }
+                );
     }
 
     private ShoppingList getDbShoppingList(CreatePurchaseRequest purchase) {
