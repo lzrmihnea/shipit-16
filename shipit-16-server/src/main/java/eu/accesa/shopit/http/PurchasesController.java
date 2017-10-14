@@ -6,10 +6,7 @@ import eu.accesa.shopit.model.entity.Product;
 import eu.accesa.shopit.service.ShoppingListService;
 import io.vavr.Tuple2;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,22 +26,26 @@ public class PurchasesController {
         this.shoppingListService = shoppingListService;
     }
 
+    @CrossOrigin
     @RequestMapping(value = API_SAVE_PURCHASE, consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public void purchaseDone(@RequestBody @Valid CreatePurchaseRequest purchase) {
         this.shoppingListService.saveOrUpdate(purchase);
     }
 
+    @CrossOrigin
     @RequestMapping(value = API_SAVE_PURCHASE_LIST, consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public void purchaseDone(@RequestBody @Valid CreatePurchaseListRequest purchaseList) {
         this.shoppingListService.saveOrUpdate(purchaseList);
     }
 
+    @CrossOrigin
     @RequestMapping(value = API_GET_SHOPPING_LIST, method = RequestMethod.GET)
     public List<Tuple2<Double,String>> shoppingList() {
         // todo recalculate shopping list
         return shoppingListService.getNextShoppingList();
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/default-profile", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public void setDefaultProfile(@RequestBody Map<String,Integer> profileMapping){
         shoppingListService.setProfile(profileMapping);
