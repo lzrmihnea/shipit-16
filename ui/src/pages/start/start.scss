@@ -1,0 +1,24 @@
+.actions {
+    position: absolute;
+    bottom: 0;
+    padding: 60px 20px 0;
+    width: 100%;
+    text-align: center;
+
+    &.homepage {
+        background: url('../assets/terrain-start.png') bottom left no-repeat;
+        height: 126px;
+        background-size: 100%;
+        background-size: cover;
+    }
+
+    &.subpage {
+      bottom: 50px;
+    }
+
+    .start {
+        background-color: map-get($colors, white);
+        color: map-get($colors, blue);
+        font-weight: bold;
+    }
+}

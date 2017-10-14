@@ -1,16 +1,197 @@
-// http://ionicframework.com/docs/theming/
+* {
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+.content {
+    background: url('../assets/bg.png');
+    background-size: cover;
+    color: #fff;
+}
+
+.center {
+    text-align: center;
+}
+
+.light {
+    font-weight: 200;
+}
+
+.t-40 {
+    margin-top: 40px !important;
+}
+
+.t-20 {
+    margin-top: 20px !important;
+}
+
+.t-80 {
+    margin-top: 80px !important;
+}
+
+.r-16 {
+    padding-right: 16px;
+}
+
+.l-16 {
+    padding-left: 16px;
+}
+
+.p-040 {
+    padding: 0 40px;
+}
+
+h1 {
+    &.title {
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+    }
+}
+
+h2 {
+    &.subtitle {
+        font-size: 24px;
+
+        &.aside {
+            font-size: 14px;
+        }
+    }
+}
+
+h4 {
+    &.subtitle {
+        font-size: 24px;
+
+        &.aside {
+            font-size: 14px;
+            color: rgba(map-get($colors, white), 0.5);
+        }
+    }
+}
+
+.louie {
+    background: url('../assets/louie.png') top left no-repeat;
+    background-size: cover;
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 10;
+}
+
+.list-ios > .item-block:last-child,
+.list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: none !important;
+}
+
+.add {
+    color: map-get($colors, white);
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    text-align: left;
+}
+
+.item {
+    background: transparent;
+
+    &.input-has-focus,
+    &.input-has-value {
+        .label {
+            font-weight: 600;
+        }
+    }
+
+    &.item-block {
+        &:first-child {
+            border: none;
+        }
+    }
+
+    &.button {
+        margin-bottom: 10px;
+
+        .item-inner {
+            border-bottom: none !important;
+        }
+
+        .checkbox {
+            .checkbox-icon {
+                display: none;
+            }
+
+            .item-cover {
+                border: 2px map-get($colors, white) solid;
+                border-radius: 4px;
+            }
+        }
+
+        &.item-checkbox-checked {
+            .item-cover {
+                background: map-get($colors, white);
+            }
+
+            .item-inner {
+                .label {
+                    color: map-get($colors, red) !important;
+                    z-index: 10;
+                }
+            }
+        }
+    }
+
+    &.clear {
+        .item-inner {
+            border-bottom: none !important;
+        }
+    }
+
+    .item-inner {
+        border-bottom: 0.55px map-get($colors, white) solid !important;
+
+        .input-wrapper {
+            .input,
+            .label,
+            .select {
+                color: map-get($colors, white);
+                font-size: 16px;
+            }
+
+            .select {
+                .select-icon-inner {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+.slides {
+    .swiper-container {
+        .swiper-wrapper {
+            .swiper-slide {
+                .slide-zoom {
+                    height: 100%;
+                }
+            }
+        }
+
+        .swiper-pagination {
+            .swiper-pagination-bullet-active {
+                background: map-get($colors, white);
+            }
+        }
+    }
+}
+
+.col {
+    &.last {
+        padding-top: 0;
+        margin-top: -5px;
+    }
+}

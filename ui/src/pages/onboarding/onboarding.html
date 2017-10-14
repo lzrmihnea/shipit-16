@@ -1,0 +1,150 @@
+<ion-content>
+
+    <ion-slides pager="true">
+        <ion-slide>
+            <h1 class="title center t-40 light">
+                Lets' meet!
+            </h1>
+
+            <ion-item class="r-16">
+                <ion-label color="primary" floating>What's your name?</ion-label>
+                <ion-input [(ngModel)]="name"></ion-input>
+            </ion-item>
+
+            <ion-item class="r-16">
+                <ion-label color="primary" floating>How many people live in your house?</ion-label>
+                <ion-select [(ngModel)]="numberOfPeople" interface="action-sheet">
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">6</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="r-16 t-40">
+                <ion-label color="primary" floating>How many adults?</ion-label>
+                <ion-select [(ngModel)]="adults" interface="action-sheet">
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">6</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="r-16">
+                <ion-label color="primary" floating>How many kids?</ion-label>
+                <ion-select [(ngModel)]="kids" interface="action-sheet">
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">6</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="r-16">
+                <ion-label color="primary" floating>How many pets?</ion-label>
+                <ion-select [(ngModel)]="pets" interface="action-sheet">
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5</ion-option>
+                    <ion-option value="6">6</ion-option>
+                </ion-select>
+            </ion-item>
+            <div class="actions subpage">
+                <button ion-button full round color="white" class="start" (click)="goToSlide(1)">Next step</button>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <h1 class="title center t-40 light">
+                And how do you shop?
+            </h1>
+
+            <h4 class="subtitle center t-20 aside">
+                You can select multiple options.
+            </h4>
+
+            <ion-grid>
+                <ion-row class="t-40">
+                    <ion-col col-6>
+                        <ion-item class="button">
+                            <ion-label>Monday</ion-label>
+                            <ion-checkbox [(ngModel)]="day1"></ion-checkbox>
+                        </ion-item>
+                        <ion-item class="button">
+                            <ion-label>Wednesday</ion-label>
+                            <ion-checkbox [(ngModel)]="day3"></ion-checkbox>
+                        </ion-item>
+                        <ion-item class="button">
+                            <ion-label>Friday</ion-label>
+                            <ion-checkbox [(ngModel)]="day5"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-item class="button">
+                            <ion-label>Tuesday</ion-label>
+                            <ion-checkbox [(ngModel)]="day2"></ion-checkbox>
+                        </ion-item>
+                        <ion-item class="button">
+                            <ion-label>Thursday</ion-label>
+                            <ion-checkbox [(ngModel)]="day4"></ion-checkbox>
+                        </ion-item>
+                        <ion-item class="button">
+                            <ion-label>Saturday</ion-label>
+                            <ion-checkbox [(ngModel)]="day6"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-12 class="last">
+                        <ion-item class="button">
+                            <ion-label>Sunday</ion-label>
+                            <ion-checkbox [(ngModel)]="day7"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col col-12 class="t-20">
+                        <ion-item class="button">
+                            <ion-label>Every 2 weeks</ion-label>
+                            <ion-checkbox [(ngModel)]="weekly"></ion-checkbox>
+                        </ion-item>
+                        <ion-item class="button">
+                            <ion-label>Monthly</ion-label>
+                            <ion-checkbox [(ngModel)]="monthly"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <div class="actions subpage">
+                <button ion-button full round color="white" class="start" (click)="goToSlide(2)">Next step</button>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <h1 class="title center t-40 light">
+                What is most likely for you to buy?
+            </h1>
+
+            <h4 class="subtitle center t-20 aside">
+                you can select multiple options
+            </h4>
+
+            <ion-list class="t-40">
+                <ion-item class="clear" *ngFor="let item of items">
+                    <ion-label *ngIf="!item.new">{{item.name}}</ion-label>
+                    <ion-input *ngIf="item.new" [(ngModel)]="item.name"></ion-input>
+                    <ion-checkbox></ion-checkbox>
+                </ion-item>
+            </ion-list>
+            <a class="add l-16" (click)="addItem()">
+                <ion-icon name="add-circle"></ion-icon> Add another item</a>
+            <div class="actions subpage">
+                <button ion-button full round color="white" class="start" (click)="goToSlide(2)">Finish</button>
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+</ion-content>
