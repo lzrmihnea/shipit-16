@@ -5,6 +5,7 @@ import eu.accesa.shopit.model.CreatePurchaseRequest;
 import eu.accesa.shopit.model.entity.Product;
 import eu.accesa.shopit.model.entity.ShoppingList;
 import eu.accesa.shopit.repository.ComputationMapper;
+import eu.accesa.shopit.repository.ProductRepository;
 import eu.accesa.shopit.repository.ShoppingListRepository;
 import eu.accesa.shopit.util.DateUtil;
 import org.slf4j.Logger;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -24,6 +24,8 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 
     @Autowired
     private ShoppingListRepository shoppingListRepository;
+    @Autowired
+    private ProductRepository productRepository;
     @Autowired
     private ComputationMapper computationMapper;
 
@@ -52,9 +54,22 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     private ShoppingList getDbShoppingList(CreatePurchaseRequest purchase) {
         ShoppingList dbShoppingList = this.shoppingListRepository.findFirstByDate(DateUtil.convertUtilToSql(purchase.getDate()));
         if (ObjectUtils.isEmpty(dbShoppingList)) {
-            return new ShoppingList(purchase);
+            ShoppingList newShoppingList = new ShoppingList();
+            newShoppingList.add(getProductToAdd(purchase));
+            return newShoppingList;
         }
-        dbShoppingList.add(purchase);
+
+        dbShoppingList.add(getProductToAdd(purchase));
         return dbShoppingList;
+    }
+
+    private Product getProductToAdd(CreatePurchaseRequest purchase) {
+        String prodName = purchase.getProductName();
+        Product dbProd = this.productRepository.findByName(prodName);
+        if (ObjectUtils.isEmpty(dbProd)) {
+            return new Product(prodName);
+        } else {
+            return dbProd;
+        }
     }
 }

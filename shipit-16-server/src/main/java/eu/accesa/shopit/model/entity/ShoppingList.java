@@ -28,17 +28,17 @@ public class ShoppingList implements BaseEntity {
 
     @Id
     @Column(name = SHOPPING_LIST_COLUMN_ID)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Access(AccessType.PROPERTY)
     private Integer id;
 
     @Column(name = SHOPPING_LIST_COLUMN_DATE)
     private Date date;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Product.class, cascade = CascadeType.ALL)
     @JoinTable(name = SHOPPING_LIST_PRODUCTS_TABLE_NAME,
-            joinColumns = {@JoinColumn(name = SHOPPING_LIST_PRODUCTS_COLUMN_SHOPPING_LIST_ID, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = SHOPPING_LIST_PRODUCTS_COLUMN_PRODUCT_ID, updatable = false)})
+            joinColumns = {@JoinColumn(name = SHOPPING_LIST_PRODUCTS_COLUMN_SHOPPING_LIST_ID, updatable = false, insertable = false)},
+            inverseJoinColumns = {@JoinColumn(name = SHOPPING_LIST_PRODUCTS_COLUMN_PRODUCT_ID, updatable = false, insertable = false)})
     private List<Product> products;
 
     public ShoppingList() {
@@ -94,5 +94,9 @@ public class ShoppingList implements BaseEntity {
 
     public void add(CreatePurchaseRequest purchase) {
         this.getProducts().add(new Product(purchase.getProductName()));
+    }
+
+    public void add(Product product) {
+        this.getProducts().add(product);
     }
 }

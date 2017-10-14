@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile({"!integration-test"})
+@Profile("!integration-test")
 @MapperScan(basePackages = "eu.accesa.shopit.repository")
 public class PostgreSqlDbConfig {
 

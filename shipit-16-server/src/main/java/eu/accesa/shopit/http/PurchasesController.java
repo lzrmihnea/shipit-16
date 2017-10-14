@@ -17,23 +17,27 @@ import java.util.stream.Collectors;
 @RestController
 public class PurchasesController {
 
+    public static final String API_SAVE_PURCHASE = "/purchase";
+    public static final String API_SAVE_PURCHASE_LIST = "/purchase-list";
+    public static final String API_GET_SHOPPING_LIST = "/shopping-list";
+
     private final ShoppingListService shoppingListService;
 
     public PurchasesController(ShoppingListService shoppingListService) {
         this.shoppingListService = shoppingListService;
     }
 
-    @RequestMapping(value = "/purchase", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(value = API_SAVE_PURCHASE, consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public void purchaseDone(@RequestBody @Valid CreatePurchaseRequest purchase) {
         this.shoppingListService.saveOrUpdate(purchase);
     }
 
-    @RequestMapping(value = "/purchase-list", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(value = API_SAVE_PURCHASE_LIST, consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public void purchaseDone(@RequestBody @Valid CreatePurchaseListRequest purchaseList) {
         this.shoppingListService.saveOrUpdate(purchaseList);
     }
 
-    @RequestMapping(value = "/shopping-list", method = RequestMethod.GET)
+    @RequestMapping(value = API_GET_SHOPPING_LIST, method = RequestMethod.GET)
     public List<String> shoppingList() {
         // todo recalculate shopping list
         return shoppingListService.getNextShoppingList()

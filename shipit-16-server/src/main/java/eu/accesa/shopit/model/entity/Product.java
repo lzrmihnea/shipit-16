@@ -21,7 +21,7 @@ public class Product implements BaseEntity {
 
     @Id
     @Column(name = PRODUCT_COLUMN_ID)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Access(AccessType.PROPERTY)
     private Integer id;
 
