@@ -44,6 +44,9 @@ public class ShoppingList implements BaseEntity {
     public ShoppingList() {
         this.date = new Date(Instant.now().toEpochMilli());
     }
+    public ShoppingList(Date dateParam) {
+        this.date = dateParam;
+    }
 
     public ShoppingList(CreatePurchaseRequest purchase) {
         this.date = DateUtil.convertUtilToSql(purchase.getDate());

@@ -68,8 +68,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
     private ShoppingList getDbShoppingList(CreatePurchaseRequest purchase) {
         ShoppingList dbShoppingList = this.shoppingListRepository.findFirstByDate(DateUtil.convertUtilToSql(purchase.getDate()));
         if (ObjectUtils.isEmpty(dbShoppingList)) {
-            ShoppingList newShoppingList = new ShoppingList();
-            newShoppingList.setDate(DateUtil.convertUtilToSql(purchase.getDate()));
+            ShoppingList newShoppingList = new ShoppingList(DateUtil.convertUtilToSql(purchase.getDate()));
             newShoppingList.add(getProductToAdd(purchase));
             return newShoppingList;
         }
