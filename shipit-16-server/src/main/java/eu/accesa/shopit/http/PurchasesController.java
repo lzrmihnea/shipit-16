@@ -1,5 +1,6 @@
 package eu.accesa.shopit.http;
 
+import eu.accesa.shopit.model.CreatePurchaseListRequest;
 import eu.accesa.shopit.model.CreatePurchaseRequest;
 import eu.accesa.shopit.model.entity.Product;
 import eu.accesa.shopit.service.ShoppingListService;
@@ -25,6 +26,11 @@ public class PurchasesController {
     @RequestMapping(value = "/purchase", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public void purchaseDone(@RequestBody @Valid CreatePurchaseRequest purchase) {
         this.shoppingListService.saveOrUpdate(purchase);
+    }
+
+    @RequestMapping(value = "/purchase-list", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public void purchaseDone(@RequestBody @Valid CreatePurchaseListRequest purchaseList) {
+        this.shoppingListService.saveOrUpdate(purchaseList);
     }
 
     @RequestMapping(value = "/shopping-list", method = RequestMethod.GET)
