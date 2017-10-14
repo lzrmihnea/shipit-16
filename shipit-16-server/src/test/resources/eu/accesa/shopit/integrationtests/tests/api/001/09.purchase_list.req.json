@@ -1,0 +1,20 @@
+{
+   "purchaseList":[
+      {
+         "date":"2017-10-09T14:00:00.583Z",
+         "productName":"lapte"
+      },
+      {
+         "date":"2017-10-09T14:00:00.583Z",
+         "productName":"smantana"
+      },
+      {
+         "date":"2017-10-09T14:00:00.583Z",
+         "productName":"biscuiti"
+      },
+      {
+         "date":"2017-10-09T14:00:00.583Z",
+         "productName":"paine"
+      }
+   ]
+}
