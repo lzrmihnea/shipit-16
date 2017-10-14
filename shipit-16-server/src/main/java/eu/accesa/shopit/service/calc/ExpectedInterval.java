@@ -39,7 +39,7 @@ public class ExpectedInterval implements ShoppingListPredictor {
         Double divident = 0.0;
 
         if (purchaseTimes.size() < 2)
-            return Optional.ofNullable(defaultProfileRepository.findByName(itemName)).orElse(7*24*60*60);
+            return Optional.ofNullable(defaultProfileRepository.findByName(itemName)).orElse(7 * 24 * 60 * 60);
         for (int i = 0; i < purchaseTimes.size() - 1; i++) {
             wi = weightNormalization(
                     (purchaseTimes.get(i) +
@@ -53,27 +53,31 @@ public class ExpectedInterval implements ShoppingListPredictor {
     }
 
     private Double weightNormalization(Double interval) {
-        return (-1 / (retroDays*24*60*60)) * interval + 1;
+        return (-1 / (retroDays * 24 * 60 * 60)) * interval + 1;
     }
 
     public Double probabilityOfNeed(Product item) {
 
-        return ((System.currentTimeMillis() / 1000L) -
-                shoppingListRepository.findFirstByProductsInOrderByDateDesc(item).getDate().toLocalDate().atStartOfDay(ZoneOffset.UTC).toInstant().getEpochSecond())
-                / expectedInterval(
+        long curentEpochSeconds = (System.currentTimeMillis() / 1000L);
+        long lastPurchaseSeconds = shoppingListRepository.findFirstByProductsInOrderByDateDesc(item).getDate().toLocalDate().atStartOfDay(ZoneOffset.UTC).toInstant().getEpochSecond();
+        double calculatedInterval = expectedInterval(
                 List.ofAll(shoppingListRepository.findByProductsIn(item))
-                        .map(shoppingList -> (shoppingList.getDate().toLocalDate().atStartOfDay(ZoneOffset.UTC).toInstant().getEpochSecond())).toJavaList(),
-                    item.getName()
-                );
+                        .map(shoppingList ->
+                                (shoppingList.getDate().toLocalDate().atStartOfDay(ZoneOffset.UTC).toInstant().getEpochSecond()))
+                        .distinct()
+                        .toJavaList(),
+                item.getName()
+        );
+        return (curentEpochSeconds-lastPurchaseSeconds)/calculatedInterval;
     }
 
     @Override
-    public java.util.List<Tuple2<Double,String>> predictedList() {
+    public java.util.List<Tuple2<Double, String>> predictedList() {
         return List.ofAll(productRepository.findAll())
                 .map(product -> Tuple.of(probabilityOfNeed(product), product.getName()))
-                .filter(item -> item._1>0.3)
+                .filter(item -> item._1 > 0.3)
                 .sortBy((Double item1, Double item2) -> item1.compareTo(item1), Tuple2::_1)
-              //  .map(item -> item._2)
+                //  .map(item -> item._2)
                 .collect(List.collector()).toJavaList();
     }
 }

@@ -11,7 +11,6 @@ import eu.accesa.shopit.repository.ShoppingListRepository;
 import eu.accesa.shopit.service.calc.ExpectedInterval;
 import eu.accesa.shopit.util.DateUtil;
 import io.vavr.Tuple2;
-import io.vavr.collection.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -71,6 +69,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
         ShoppingList dbShoppingList = this.shoppingListRepository.findFirstByDate(DateUtil.convertUtilToSql(purchase.getDate()));
         if (ObjectUtils.isEmpty(dbShoppingList)) {
             ShoppingList newShoppingList = new ShoppingList();
+            newShoppingList.setDate(DateUtil.convertUtilToSql(purchase.getDate()));
             newShoppingList.add(getProductToAdd(purchase));
             return newShoppingList;
         }
